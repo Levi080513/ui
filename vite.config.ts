@@ -5,6 +5,9 @@ import { defineConfig } from "vite";
 const NODE_IP = process.env.NODE_IP || "localhost";
 
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production'
+    ? '/public/'
+    : '/',  
   plugins: [react()],
   resolve: {
     alias: {
@@ -14,7 +17,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/v1": {
-        target: `http://${NODE_IP}:3030`,
+        target: `http://${NODE_IP}:3000`,
       },
     },
   },
